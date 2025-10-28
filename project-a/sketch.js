@@ -22,9 +22,12 @@ let angry = false;
 let waveSpeed = 0.05;
 
 function setup() {
-    let canvas = createCanvas(800, 500);
-    canvas.id("p5-canvas");
-    canvas.parent("p5-canvas-container");
+  let canvas = createCanvas(800, 500);
+  canvas.id("p5-canvas");
+  canvas.parent("p5-canvas-container");
+  textSize(32);
+  textAlign(CENTER, CENTER);
+  text("Hello PAC!", width / 2, height / 2);
   pacX = width / 2;
   pacY = height / 2;
 }
@@ -105,10 +108,10 @@ function draw() {
   noStroke();
   let mouth = map(sin(frameCount * 0.15), -1, 1, PI / 30, PI / 4);
   if (angry) {
-  fill(255, 0, 0);
-} else {
-  fill(255, 255, 0);
-}
+    fill(255, 0, 0);
+  } else {
+    fill(255, 255, 0);
+  }
   if (moveVertical) {
     if (facingUp) {
       arc(0, 0, pacSize, pacSize, -HALF_PI + mouth, -HALF_PI - mouth + TWO_PI);
@@ -131,28 +134,28 @@ function draw() {
     }
   }
   pop();
-if (dotVisible) {
-  // target decoration
+  if (dotVisible) {
+    // target decoration
     fill(255, 0, 0);
-    translate(dotX,dotY)
+    translate(dotX, dotY)
     rotate(targetAngle);
     stroke(0);
     strokeWeight(1);
-    circle(0,0, 6);
-    targetAngle+=0.05;
-    
-    
+    circle(0, 0, 6);
+    targetAngle += 0.05;
+
+
     for (let Angle = 0; Angle < 2 * PI; Angle += PI / 4) {
-    rotate(Angle);
-    fill(255);
+      rotate(Angle);
+      fill(255);
       stroke(0);
       strokeWeight(1)
-    circle(10, 0, 5);
-      fill(255,0,0);
+      circle(10, 0, 5);
+      fill(255, 0, 0);
       noStroke();
-      circle(20,0,10)
+      circle(20, 0, 10)
+    }
   }
-}
   // Target
   if (dotVisible && eatCounter < 5) {
     fill(255, 0, 0);
@@ -172,10 +175,10 @@ function drawEnergyLines(cx, cy) {
   push();
   translate(cx, cy);
   if (angry) {
-  stroke(color(255, 0, 0, 150));
-} else {
-  stroke(color(0, 150, 255, 150));
-}
+    stroke(color(255, 0, 0, 150));
+  } else {
+    stroke(color(0, 150, 255, 150));
+  }
   strokeWeight(2);
   noFill();
 
@@ -206,13 +209,13 @@ function drawWavyLine(x1, y1, x2, y2, amp) {
     let x = lerp(x1, x2, t);
     let y = lerp(y1, y2, t);
     let speedFactor;
-if (angry) {
-  speedFactor = 0.3;
-} else {
-  speedFactor = waveSpeed;
-}
+    if (angry) {
+      speedFactor = 0.3;
+    } else {
+      speedFactor = waveSpeed;
+    }
 
-let offset = sin(frameCount * speedFactor + t * TWO_PI) * amp * 0.5;
+    let offset = sin(frameCount * speedFactor + t * TWO_PI) * amp * 0.5;
     let nx = y2 - y1;
     let ny = -(x2 - x1);
     let mag = sqrt(nx * nx + ny * ny);
@@ -238,10 +241,10 @@ function drawVertexBeam(len, angle) {
 
 //random bacterias
 function drawCircleEffect() {
-   let c = map(cos(frameCount*0.01),-1,1,0,100);
-  stroke(0,0,255)
-  fill(255,0,0);
-  circle(random(0,800),random(0,800),40)
+  let c = map(cos(frameCount * 0.01), -1, 1, 0, 100);
+  stroke(0, 0, 255)
+  fill(255, 0, 0);
+  circle(random(0, 800), random(0, 800), 40)
   noStroke()
   textSize(32);
   textAlign(CENTER);
@@ -251,7 +254,7 @@ function drawCircleEffect() {
 function mousePressed() {
   if (eatCounter >= 5) {  // PAC has evolved
     let d = dist(mouseX, mouseY, pacX, pacY);
-    
+
     if (d < pacSize / 2) {
       if (angry == true) {
         angry = false;
